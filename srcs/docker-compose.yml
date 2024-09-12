@@ -1,0 +1,7 @@
+services:
+  nginx:
+    build:
+      context: requirements/nginx
+      dockerfile: "Dockerfile"
+    ports:
+      - "8080:80"
