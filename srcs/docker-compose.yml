@@ -22,7 +22,14 @@ services:
       dockerfile: "Dockerfile"
     depends_on:
       - mariadb
+    environment:
+      WORDPRESS_DB_HOST: mariadb
+      WORDPRESS_DB_USER: ${MYSQL_USER}
+      WORDPRESS_DB_PASSWORD: ${MYSQL_PASSWORD}
+      WORDPRESS_DB_NAME: ${MYSQL_DATABASE}
     restart: unless-stopped
+    # ports:
+    #   - "9000:9000"
   mariadb:
     networks:
       - inception-nw
@@ -36,6 +43,8 @@ services:
       MYSQL_DATABASE: ${MYSQL_DATABASE}
       MYSQL_USER: ${MYSQL_USER}
       MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+    # ports:
+    #   - "3306:3306"
     restart: unless-stopped
 
 volumes:
