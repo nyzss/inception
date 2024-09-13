@@ -14,15 +14,19 @@ SRCS = srcs/
 
 DOCKER_COMPOSE = docker-compose.yml
 
+COMPOSE = ${SRCS}${DOCKER_COMPOSE}
+
 all: 
-	docker compose -f ${SRCS}/${DOCKER_COMPOSE} up
+	docker compose -f ${COMPOSE} up
+
+orphans:
+	docker compose -f ${COMPOSE} up --remove-orphans
 
 clean:
-	echo clean
+	docker compose -f ${COMPOSE} down -v
+	docker system prune -a --volumes
 
-fclean: clean
-	echo fclean
+re: clean 
+	make all
 
-re: fclean all
-
-.PHONY: all clean fclean re
+.PHONY: all clean re
