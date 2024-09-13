@@ -11,7 +11,7 @@ services:
       - web:/home/okoca/data/web
     depends_on:
       - wordpress
-    restart: unless_stopped
+    restart: unless-stopped
   wordpress:
     networks:
       - inception-nw
@@ -22,7 +22,7 @@ services:
       dockerfile: "Dockerfile"
     depends_on:
       - mariadb
-    restart: unless_stopped
+    restart: unless-stopped
   mariadb:
     networks:
       - inception-nw
@@ -31,7 +31,12 @@ services:
     build:
       context: requirements/mariadb
       dockerfile: "Dockerfile"
-    restart: unless_stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+    restart: unless-stopped
 
 volumes:
   web:
