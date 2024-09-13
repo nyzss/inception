@@ -17,9 +17,18 @@ services:
     build:
       context: requirements/wordpress
       dockerfile: "Dockerfile"
+  mariadb:
+    networks:
+      - inception-nw
+    volumes:
+      - db:/home/okoca/data/db
+    build:
+      context: requirements/mariadb
+      dockerfile: "Dockerfile"
 
 volumes:
   web:
+  db:
 
 networks:
   inception-nw:
