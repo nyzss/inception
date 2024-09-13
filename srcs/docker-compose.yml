@@ -1,7 +1,26 @@
 services:
   nginx:
+    networks:
+      - inception-nw
     build:
       context: requirements/nginx
       dockerfile: "Dockerfile"
     ports:
       - "8080:80"
+    volumes:
+      - web:/home/okoca/data/web
+  wordpress:
+    networks:
+      - inception-nw
+    volumes:
+      - web:/home/okoca/data/web
+    build:
+      context: requirements/wordpress
+      dockerfile: "Dockerfile"
+
+volumes:
+  web:
+
+networks:
+  inception-nw:
+    driver: bridge
