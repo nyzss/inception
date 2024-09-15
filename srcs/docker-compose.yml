@@ -6,12 +6,14 @@ services:
       context: requirements/nginx
       dockerfile: "Dockerfile"
     ports:
-      - "8080:80"
-      - "8443:443"
+      - "80:80"
+      - "443:443"
     volumes:
       - web:/var/www/html
     depends_on:
       - wordpress
+    environment:
+      MY_SERVER_NAME: ${WORDPRESS_SITE_URL}
     restart: unless-stopped
   wordpress:
     networks:

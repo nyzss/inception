@@ -31,10 +31,10 @@ stop:
 down: 
 	docker compose -f ${COMPOSE} down
 
-clean: stop
+clean: down
 	docker system prune -a --volumes
 
-fclean: stop
+fclean: down
 	docker system prune -a --volumes -f
 
 re: fclean 
