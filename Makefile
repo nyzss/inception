@@ -26,13 +26,18 @@ detach:
 	docker compose -f ${COMPOSE} up -d
 
 stop: 
+	docker compose -f ${COMPOSE} stop
+
+down: 
 	docker compose -f ${COMPOSE} down
 
 clean: stop
-	docker compose -f ${COMPOSE} down -v
 	docker system prune -a --volumes
 
-re: clean 
+fclean: stop
+	docker system prune -a --volumes -f
+
+re: fclean 
 	make all
 
 .PHONY: all clean re
