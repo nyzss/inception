@@ -8,7 +8,7 @@ services:
     ports:
       - "8080:80"
     volumes:
-      - web:/home/okoca/data/web
+      - web:/var/www/html
     depends_on:
       - wordpress
     restart: unless-stopped
@@ -16,7 +16,7 @@ services:
     networks:
       - inception-nw
     volumes:
-      - web:/home/okoca/data/web
+      - web:/var/www/html
     build:
       context: requirements/wordpress
       dockerfile: "Dockerfile"
@@ -49,8 +49,15 @@ services:
 
 volumes:
   web:
+    driver_opts:
+      type: none
+      device: /home/okoca/data/web
+      o: bind
   db:
-
+    driver_opts:
+      type: none
+      device: /home/okoca/data/db
+      o: bind
 networks:
   inception-nw:
     driver: bridge

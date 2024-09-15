@@ -22,7 +22,13 @@ all:
 orphans:
 	docker compose -f ${COMPOSE} up --remove-orphans
 
-clean:
+detach: 
+	docker compose -f ${COMPOSE} up -d
+
+stop: 
+	docker compose -f ${COMPOSE} down
+
+clean: stop
 	docker compose -f ${COMPOSE} down -v
 	docker system prune -a --volumes
 
