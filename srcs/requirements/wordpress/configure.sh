@@ -17,6 +17,6 @@ wp core install --url="${WORDPRESS_SITE_URL}" --title="${WORDPRESS_SITE_TITLE}" 
 
 wp theme activate pixl --allow-root
 
-wp user create random_user random_user@example.com --role=subscriber --allow-root
+wp user create "${USER_USERNAME}" "${USER_EMAIL}" --user_pass="${USER_PASSWORD}" --role=subscriber --allow-root
 
 exec php-fpm
