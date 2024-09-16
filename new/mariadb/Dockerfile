@@ -13,6 +13,9 @@ ENV MYSQL_DATABASE=inception
 ENV MYSQL_USER=inception
 ENV MYSQL_PASSWORD=inception
 
+RUN echo "[mysqld]" > /etc/mysql/mariadb.conf.d/50-server.cnf && \
+    echo "bind-address = 0.0.0.0" >> /etc/mysql/mariadb.conf.d/50-server.cnf
+
 # Copy initialization script and entrypoint
 COPY init.sql /docker-entrypoint-initdb.d/
 COPY docker-entrypoint.sh /usr/local/bin/
