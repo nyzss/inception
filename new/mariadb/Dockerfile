@@ -9,9 +9,6 @@ RUN apt-get update -y && \
 	apt-get install -y mariadb-server && \
 	rm -rf /var/lib/apt/lists/*
 
-# RUN sed -i 's/^#bind-address\s*=.*/bind-address = 0.0.0.0/' /etc/mysql/mariadb.conf.d/50-server.cnf && \
-# 	sed -i 's/skip-networking/#skip-networking/' /etc/mysql/mariadb.conf.d/50-server.cnf
-
 RUN mkdir /scripts && \
 	mkdir -p /run/mysqld && \
 	chown -R mysql:mysql /run/mysqld
