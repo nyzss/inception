@@ -12,3 +12,10 @@ RUN sed -i 's/bind-address\s*=\s*127\.0\.0\.1/bind-address = 0.0.0.0/' /etc/mysq
 # RUN systemctl status mariadb
 
 # RUN mysql_secure_installation
+
+COPY start_script.sh /start_script.sh
+RUN chmod +x /start_script.sh
+
+EXPOSE 3306
+
+CMD ["/start_script.sh"]
