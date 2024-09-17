@@ -15,16 +15,11 @@ ENV MYSQL_PASSWORD=inception
 
 RUN sed -i '/^bind-address/c\bind-address = 0.0.0.0' /etc/mysql/mariadb.conf.d/50-server.cnf
 
-# Copy initialization script and entrypoint
-# COPY init.sql /docker-entrypoint-initdb.d/
 COPY docker-entrypoint.sh /usr/local/bin/
 RUN chmod +x /usr/local/bin/docker-entrypoint.sh
 
-# Expose the MySQL port
 EXPOSE 3306
 
-# Set the entrypoint
 ENTRYPOINT ["docker-entrypoint.sh"]
 
-# Start MariaDB server
 CMD ["mysqld"]
