@@ -22,6 +22,8 @@ COPY ./theme/ /var/www/html/wp-content/themes/
 COPY ./configure.sh /usr/local/bin/configure.sh
 RUN chmod +x /usr/local/bin/configure.sh
 
+COPY wp-config.php /var/www/html/wp-config.php
+
 WORKDIR /var/www/html
 
 EXPOSE 9000
