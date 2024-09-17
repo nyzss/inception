@@ -1,17 +1,24 @@
-FROM nginx:1.27.1-alpine
+FROM debian:bookworm-slim
 
-RUN apk add --no-cache openssl
+ENV DOMAIN_NAME=localhost
 
-ARG  MY_SERVER_NAME
+RUN apt update -y && apt upgrade -y && \
+	apt install openssl -y && \
+	apt install nginx -y
+
+RUN mkdir -p /var/www/html && \
+	useradd -r nginx
 
 RUN mkdir -p /etc/nginx/ssl && \
 	openssl req -x509 -nodes -days 365 -newkey rsa:2048 \
 		-keyout /etc/nginx/ssl/server.key \
 		-out /etc/nginx/ssl/server.crt \
-		-subj "/CN=${MY_SERVER_NAME}"
+		-subj "/CN=${DOMAIN_NAME}"
+
 
 COPY ./nginx.conf /etc/nginx/nginx.conf
 
-EXPOSE 80 443
+EXPOSE 80
 
+# CMD ["nginx", "-t"]
 CMD ["nginx", "-g", "daemon off;"]
