@@ -15,7 +15,6 @@ RUN mkdir -p /etc/nginx/ssl && \
 		-out /etc/nginx/ssl/server.crt \
 		-subj "/CN=${DOMAIN_NAME}"
 
-
 COPY ./nginx.conf /etc/nginx/nginx.conf
 
 EXPOSE 80
