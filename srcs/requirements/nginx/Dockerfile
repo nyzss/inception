@@ -1,7 +1,5 @@
 FROM debian:bookworm-slim
 
-ENV DOMAIN_NAME=localhost
-
 RUN apt update -y && apt upgrade -y && \
 	apt install openssl -y && \
 	apt install nginx -y
