@@ -2,9 +2,11 @@ FROM debian:bookworm-slim
 
 RUN apt update -y && apt upgrade -y
 
-RUN apt install php-fpm php-mysql php-gd \
+RUN apt install mariadb-client curl php-fpm php-mysql php-gd \
 	php-cli php-curl php-mbstring php-zip \
 	php-opcache php-xml php-mysqli -y
+
+RUN php-fpm8.2 --version
 
 RUN curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar && \
     chmod +x wp-cli.phar && \
@@ -13,8 +15,8 @@ RUN curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli
 RUN wp --info
 
 RUN mkdir -p /var/www/html && \
-	curl -L -O https://wordpress.org/wordpress-6.6.2.zip && \
-	unzip wordpress-6.6.2.zip && \
+	curl -L -O https://wordpress.org/wordpress-6.6.2.tar.gz && \
+	tar xf wordpress-6.6.2.tar.gz && \
 	mv wordpress/* /var/www/html
 
 COPY ./theme/ /var/www/html/wp-content/themes/
