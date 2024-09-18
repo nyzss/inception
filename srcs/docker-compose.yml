@@ -42,14 +42,6 @@ services:
       USER_USERNAME: ${USER_USERNAME}
       USER_EMAIL: ${USER_EMAIL}
       USER_PASSWORD: ${USER_PASSWORD}
-      AUTH_KEY: ${AUTH_KEY}
-      SECURE_AUTH_KEY: ${SECURE_AUTH_KEY}
-      LOGGED_IN_KEY: ${LOGGED_IN_KEY}
-      NONCE_KEY: ${NONCE_KEY}
-      AUTH_SALT: ${AUTH_SALT}
-      SECURE_AUTH_SALT: ${SECURE_AUTH_SALT}
-      LOGGED_IN_SALT: ${LOGGED_IN_SALT}
-      NONCE_SALT: ${NONCE_SALT}
     restart: unless-stopped
   mariadb:
     networks:
