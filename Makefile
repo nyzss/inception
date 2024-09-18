@@ -17,15 +17,12 @@ DOCKER_COMPOSE = docker-compose.yml
 COMPOSE = ${SRCS}${DOCKER_COMPOSE}
 
 WEB = ${HOME}/data/web
-DB = ${HOME}/data/web
+DB = ${HOME}/data/db
 
 all: 
 	mkdir -p ${WEB}
 	mkdir -p ${DB}
 	docker compose -f ${COMPOSE} up
-
-orphans:
-	docker compose -f ${COMPOSE} up --remove-orphans
 
 detach: 
 	docker compose -f ${COMPOSE} up -d
