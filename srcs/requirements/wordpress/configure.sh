@@ -1,7 +1,5 @@
 #!/bin/bash
 
-set -eo pipefail
-
 wp core download --allow-root
 
 wp core config --dbhost="${WORDPRESS_DB_HOST}" --dbname="${WORDPRESS_DB_NAME}" \
