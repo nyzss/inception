@@ -1,17 +1,12 @@
 #!/bin/bash
 
-terminate() {
-    echo "Terminating, bye.."
-    pkill php-fpm
-    exit 0
-}
+# terminate() {
+#     echo "Terminating, bye.."
+#     pkill php-fpm
+#     exit 0
+# }
 
-trap terminate SIGTERM SIGINT
-
-until wp db check --allow-root; do
-  echo "Waiting for database..."
-  sleep 3
-done
+# trap terminate SIGTERM SIGINT
 
 wp core download --allow-root
 
@@ -26,4 +21,8 @@ wp theme activate pixl --allow-root
 
 wp user create "${USER_USERNAME}" "${USER_EMAIL}" --user_pass="${USER_PASSWORD}" --role=subscriber --allow-root
 
+until wp db check --allow-root; do
+  echo "Waiting for database..."
+  sleep 3
+done
 exec php-fpm8.2 -F -R
