@@ -34,10 +34,14 @@ stop:
 	docker compose -f ${COMPOSE} stop
 
 down: 
+	docker volume prune --force
 	docker compose -f ${COMPOSE} down -v --remove-orphans
 
+# docker run --rm -v srcs_web:/data/ alpine /bin/sh -c "rm -rf /data/*"
+# docker run --rm -v srcs_db:/data/ alpine /bin/sh -c "rm -rf /data/*"
 rebuild: down
-	docker volume prune --force
+	sudo rm -rf ${WEB}/*
+	sudo rm -rf ${DB}/*
 	docker compose -f ${COMPOSE} build
 
 clean: down

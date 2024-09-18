@@ -23,6 +23,9 @@ RUN mkdir -p /var/www/html && \
 
 COPY ./theme/ /var/www/html/wp-content/themes/
 
+RUN chmod -R 755 /var/www/html && \
+	chown -R www-data:www-data /var/www/html
+
 COPY ./configure.sh /usr/local/bin/configure.sh
 RUN chmod +x /usr/local/bin/configure.sh
 
