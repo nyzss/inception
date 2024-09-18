@@ -16,7 +16,12 @@ DOCKER_COMPOSE = docker-compose.yml
 
 COMPOSE = ${SRCS}${DOCKER_COMPOSE}
 
+WEB = ${HOME}/data/web
+DB = ${HOME}/data/web
+
 all: 
+	mkdir -p ${WEB}
+	mkdir -p ${DB}
 	docker compose -f ${COMPOSE} up
 
 orphans:
@@ -29,7 +34,12 @@ stop:
 	docker compose -f ${COMPOSE} stop
 
 down: 
-	docker compose -f ${COMPOSE} down
+	docker compose -f ${COMPOSE} down -v --remove-orphans
+
+rebuild: down
+	sudo rm -rf ${WEB}/*
+	sudo rm -rf ${DB}/*
+	docker compose -f ${COMPOSE} build
 
 clean: down
 	docker system prune -a --volumes

@@ -55,7 +55,6 @@ services:
     networks:
       - inception-nw
     volumes:
-      # - db:/home/okoca/data/db
       - db:/var/lib/mysql
     build:
       context: requirements/mariadb
