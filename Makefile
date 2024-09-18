@@ -36,18 +36,14 @@ down:
 	docker volume prune --force
 	docker compose -f ${COMPOSE} down -v --remove-orphans
 
-# docker run --rm -v srcs_web:/data/ alpine /bin/sh -c "rm -rf /data/*"
-# docker run --rm -v srcs_db:/data/ alpine /bin/sh -c "rm -rf /data/*"
 rebuild: down
 	docker compose -f ${COMPOSE} build
 
 clean: down
 	docker system prune -a --volumes
-	docker volume prune
 
 fclean: down
 	docker system prune -a --volumes -f
-	docker volume prune
 
 re: fclean 
 	make all
