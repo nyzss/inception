@@ -37,15 +37,16 @@ down:
 	docker compose -f ${COMPOSE} down -v --remove-orphans
 
 rebuild: down
-	sudo rm -rf ${WEB}/*
-	sudo rm -rf ${DB}/*
+	docker volume prune --force
 	docker compose -f ${COMPOSE} build
 
 clean: down
 	docker system prune -a --volumes
+	docker volume prune
 
 fclean: down
 	docker system prune -a --volumes -f
+	docker volume prune
 
 re: fclean 
 	make all
