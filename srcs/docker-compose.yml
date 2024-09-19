@@ -66,6 +66,21 @@ services:
       dockerfile: "Dockerfile"
     restart: unless-stopped
 
+  ftp:
+    networks:
+      - inception-nw
+    build:
+      context: requirements/ftp
+      dockerfile: "Dockerfile"
+    volumes:
+      - web:/web_data
+    args:
+      FTP_USER: ${FTP_USER}
+      FTP_PASSWORD: ${FTP_PASSWORD}
+    depends_on:
+      - wordpress
+    restart: unless-stopped
+
 volumes:
   web:
     driver_opts:
