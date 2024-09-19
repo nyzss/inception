@@ -72,13 +72,16 @@ services:
     build:
       context: requirements/ftp
       dockerfile: "Dockerfile"
+      args:
+        FTP_USER: ${FTP_USER}
+        FTP_PASSWORD: ${FTP_PASSWORD}
     volumes:
       - web:/web_data
-    args:
-      FTP_USER: ${FTP_USER}
-      FTP_PASSWORD: ${FTP_PASSWORD}
     depends_on:
       - wordpress
+    ports:
+      - "20-21:20-21"
+      - "40000-50000:40000-50000"
     restart: unless-stopped
 
 volumes:

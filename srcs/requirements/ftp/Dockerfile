@@ -17,4 +17,6 @@ RUN mkdir -p /web_data && \
 
 COPY conf /etc/vsftpd.conf
 
+EXPOSE 20 21 40000-50000
+
 CMD ["vsftpd", "/etc/vsftpd.conf"]
