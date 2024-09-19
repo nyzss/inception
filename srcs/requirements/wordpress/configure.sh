@@ -7,6 +7,10 @@ wp core config --dbhost="${WORDPRESS_DB_HOST}" --dbname="${WORDPRESS_DB_NAME}" \
 
 wp config set WP_CACHE true --raw --allow-root
 
+wp config set WP_REDIS_HOST redis --allow-root
+
+wp config set WP_REDIS_PORT 6379 --allow-root
+
 until wp db check --allow-root; do
   echo "Waiting for database..."
   sleep 3
@@ -17,6 +21,10 @@ wp core install --url="${WORDPRESS_SITE_URL}" --title="${WORDPRESS_SITE_TITLE}" 
   --admin_email="${WORDPRESS_ADMIN_EMAIL}" --skip-email --allow-root
 
 wp theme install pixl --activate --allow-root
+
+wp plugin install redis-cache --activate --allow-root
+
+wp redis enable --allow-root
 
 wp user create "${USER_USERNAME}" "${USER_EMAIL}" --user_pass="${USER_PASSWORD}" --role=subscriber --allow-root
 

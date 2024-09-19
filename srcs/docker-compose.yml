@@ -25,6 +25,7 @@ services:
       dockerfile: "Dockerfile"
     depends_on:
       - mariadb
+      - redis
     environment:
       WORDPRESS_DB_HOST: mariadb
       WORDPRESS_DB_USER: ${MYSQL_USER}
@@ -56,6 +57,13 @@ services:
       MYSQL_DATABASE: ${MYSQL_DATABASE}
       MYSQL_USER: ${MYSQL_USER}
       MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+    restart: unless-stopped
+  redis:
+    networks:
+      - inception-nw
+    build:
+      context: requirements/redis
+      dockerfile: "Dockerfile"
     restart: unless-stopped
 
 volumes:
