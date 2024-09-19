@@ -31,10 +31,10 @@ stop:
 	docker compose -f ${COMPOSE} stop
 
 down: 
-	sudo rm -rf ${WEB}/*
-	sudo rm -rf ${DB}/*
 	docker volume prune --force
 	docker compose -f ${COMPOSE} down -v --remove-orphans
+	sudo rm -rf ${WEB}/*
+	sudo rm -rf ${DB}/*
 
 rebuild: down
 	docker compose -f ${COMPOSE} build
