@@ -5,6 +5,8 @@ wp core download --allow-root
 wp core config --dbhost="${WORDPRESS_DB_HOST}" --dbname="${WORDPRESS_DB_NAME}" \
   --dbuser="${WORDPRESS_DB_USER}" --dbpass="${WORDPRESS_DB_PASSWORD}" --allow-root
 
+wp config set WP_CACHE true --raw --allow-root
+
 until wp db check --allow-root; do
   echo "Waiting for database..."
   sleep 3
