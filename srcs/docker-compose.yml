@@ -66,24 +66,23 @@ services:
       dockerfile: "Dockerfile"
     restart: unless-stopped
 
-  # ftp:
-  #   networks:
-  #     - inception-nw
-  #   build:
-  #     context: requirements/ftp
-  #     dockerfile: "Dockerfile"
-  #     args:
-  #       FTP_USER: ${FTP_USER}
-  #       FTP_PASSWORD: ${FTP_PASSWORD}
-  #   volumes:
-  #     - web:/web_data
-  #   depends_on:
-  #     - wordpress
-  #   ports:
-  #     - "20-21:20-21"
-  #     - "40000-50000:40000-50000"
-  #   restart: unless-stopped
-
+  ftp:
+    networks:
+      - inception-nw
+    build:
+      context: requirements/ftp
+      dockerfile: "Dockerfile"
+      args:
+        FTP_USER: ${FTP_USER}
+        FTP_PASSWORD: ${FTP_PASSWORD}
+    volumes:
+      - web:/web_data
+    depends_on:
+      - wordpress
+    ports:
+      - "20-21:20-21"
+      - "30000-31000:30000-31000"
+    restart: unless-stopped
 volumes:
   web:
     driver_opts:

@@ -11,6 +11,8 @@ wp config set WP_REDIS_HOST redis --allow-root
 
 wp config set WP_REDIS_PORT 6379 --allow-root
 
+wp config set FS_METHOD direct --allow-root
+
 until wp db check --allow-root; do
   echo "Waiting for database..."
   sleep 3
