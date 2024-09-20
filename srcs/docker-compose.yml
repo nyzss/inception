@@ -66,34 +66,34 @@ services:
       dockerfile: "Dockerfile"
     restart: unless-stopped
 
-  ftp:
-    networks:
-      - inception-nw
-    build:
-      context: requirements/ftp
-      dockerfile: "Dockerfile"
-      args:
-        FTP_USER: ${FTP_USER}
-        FTP_PASSWORD: ${FTP_PASSWORD}
-    volumes:
-      - web:/web_data
-    depends_on:
-      - wordpress
-    ports:
-      - "20-21:20-21"
-      - "40000-50000:40000-50000"
-    restart: unless-stopped
+  # ftp:
+  #   networks:
+  #     - inception-nw
+  #   build:
+  #     context: requirements/ftp
+  #     dockerfile: "Dockerfile"
+  #     args:
+  #       FTP_USER: ${FTP_USER}
+  #       FTP_PASSWORD: ${FTP_PASSWORD}
+  #   volumes:
+  #     - web:/web_data
+  #   depends_on:
+  #     - wordpress
+  #   ports:
+  #     - "20-21:20-21"
+  #     - "40000-50000:40000-50000"
+  #   restart: unless-stopped
 
 volumes:
   web:
     driver_opts:
       type: none
-      device: /home/okoca/data/web
+      device: ${HOME}/data/web
       o: bind
   db:
     driver_opts:
       type: none
-      device: /home/okoca/data/db
+      device: ${HOME}/data/db
       o: bind
 networks:
   inception-nw:
