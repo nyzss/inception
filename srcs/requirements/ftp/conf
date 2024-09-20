@@ -16,3 +16,4 @@ local_root=/web_data
 syslog_enable=YES
 xferlog_enable=YES
 allow_writeable_chroot=YES
+background=NO
