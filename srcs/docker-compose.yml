@@ -125,6 +125,21 @@ services:
       - web:/var/www/html
     restart: unless-stopped
 
+  grafana:
+    networks:
+      - inception-nw
+    build:
+      context: requirements/grafana
+      dockerfile: "Dockerfile"
+    image: grafana
+    # depends_on:
+    #   - mariadb
+    environment:
+      GRAFANA_ADMIN_USER: ${GRAFANA_ADMIN_USER}
+      GRAFANA_ADMIN_PASSWORD: ${GRAFANA_ADMIN_PASSWORD}
+    pull_policy: never
+    restart: unless-stopped
+
 volumes:
   web:
     driver: local
