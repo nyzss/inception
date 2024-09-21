@@ -16,6 +16,7 @@ services:
       - wordpress
       - static
       - adminer
+      - grafana
     environment:
       DOMAIN_NAME: ${DOMAIN_NAME}
     restart: unless-stopped
@@ -132,11 +133,15 @@ services:
       context: requirements/grafana
       dockerfile: "Dockerfile"
     image: grafana
-    # depends_on:
-    #   - mariadb
+    depends_on:
+      - mariadb
+      - redis
     environment:
       GRAFANA_ADMIN_USER: ${GRAFANA_ADMIN_USER}
       GRAFANA_ADMIN_PASSWORD: ${GRAFANA_ADMIN_PASSWORD}
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
     pull_policy: never
     restart: unless-stopped
 

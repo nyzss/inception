@@ -15,11 +15,12 @@ RUN apt update -y && \
 
 RUN apt install vim -y
 
-COPY configure.sh /configure.sh
 COPY grafana.ini /grafana.ini
 
-RUN chmod +x /configure.sh
+RUN cp -r /usr/share/grafana/conf/provisioning /provisioning
+
+COPY mysql.yaml /provisioning/datasources
 
 EXPOSE 7000
 
-CMD ["/configure.sh"]
+CMD ["grafana-server", "--homepath", "/usr/share/grafana", "--config", "/grafana.ini"]
