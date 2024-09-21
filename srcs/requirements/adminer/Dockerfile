@@ -1,7 +1,7 @@
 FROM debian:bookworm-slim
 
 RUN apt update -y && \
-	apt install php php-fpm php-mysql -y
+	apt install curl php php-fpm php-mysql -y
 
 RUN php-fpm8.2 --version
 
@@ -11,10 +11,12 @@ RUN mkdir -p /var/www/html/adminer && \
 	chmod -R 777 /var/www/html/adminer && \
 	chown -R www-data:www-data /var/www/html/adminer
 
-COPY ./adminer /var/www/html/adminer/index.php
-
 WORKDIR /var/www/html/adminer
+
+COPY configure.sh /configure.sh
+
+RUN chmod +x /configure.sh
 
 EXPOSE 8080
 
-CMD ["php-fpm8.2", "-F", "-R"]
+CMD [ "/configure.sh" ]
