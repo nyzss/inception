@@ -5,12 +5,17 @@ RUN apt update -y && \
 
 RUN php-fpm8.2 --version
 
-RUN mkdir -p /var/www/html/adminer
+RUN sed -i 's|^listen = /run/php/php8.2-fpm.sock|listen = 0.0.0.0:8080|' /etc/php/8.2/fpm/pool.d/www.conf
 
-RUN curl -L https://github.com/vrana/adminer/releases/download/v4.8.1/adminer-4.8.1.php -o /var/www/html/adminer/adminer.php
+RUN mkdir -p /var/www/html/adminer && \
+	chmod -R 777 /var/www/html/adminer && \
+	chown -R www-data:www-data /var/www/html/adminer
+
+RUN curl -L https://github.com/vrana/adminer/releases/download/v4.8.1/adminer-4.8.1.php -o /var/www/html/adminer/index.php
 
 WORKDIR /var/www/html/adminer
 
 EXPOSE 8080
 
 CMD ["php-fpm8.2", "-F", "-R"]
+# CMD ["php", "-S", "0.0.0.0:8080"]
