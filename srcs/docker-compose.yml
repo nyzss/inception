@@ -109,6 +109,17 @@ services:
     volumes:
       - web:/var/www/html
     restart: unless-stopped
+  adminer:
+    networks:
+      - inception-nw
+    build:
+      context: requirements/adminer
+      dockerfile: "Dockerfile"
+    image: adminer
+    pull_policy: never
+    volumes:
+      - web:/var/www/html
+    restart: unless-stopped
 
 volumes:
   web:
