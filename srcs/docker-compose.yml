@@ -14,6 +14,7 @@ services:
       - web:/var/www/html
     depends_on:
       - wordpress
+      - static
     environment:
       DOMAIN_NAME: ${DOMAIN_NAME}
     restart: unless-stopped
@@ -95,6 +96,18 @@ services:
     ports:
       - "20-21:20-21"
       - "30000-31000:30000-31000"
+    restart: unless-stopped
+
+  static:
+    networks:
+      - inception-nw
+    build:
+      context: requirements/static
+      dockerfile: "Dockerfile"
+    image: static
+    pull_policy: never
+    volumes:
+      - web:/var/www/html
     restart: unless-stopped
 
 volumes:
