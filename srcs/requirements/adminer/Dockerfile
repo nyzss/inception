@@ -1,7 +1,7 @@
 FROM debian:bookworm-slim
 
 RUN apt update -y && \
-	apt install curl php php-fpm php-mysql -y
+	apt install php php-fpm php-mysql -y
 
 RUN php-fpm8.2 --version
 
@@ -11,11 +11,10 @@ RUN mkdir -p /var/www/html/adminer && \
 	chmod -R 777 /var/www/html/adminer && \
 	chown -R www-data:www-data /var/www/html/adminer
 
-RUN curl -L https://github.com/vrana/adminer/releases/download/v4.8.1/adminer-4.8.1.php -o /var/www/html/adminer/index.php
+COPY ./adminer /var/www/html/adminer/index.php
 
 WORKDIR /var/www/html/adminer
 
 EXPOSE 8080
 
 CMD ["php-fpm8.2", "-F", "-R"]
-# CMD ["php", "-S", "0.0.0.0:8080"]
