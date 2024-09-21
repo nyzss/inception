@@ -3,7 +3,8 @@ FROM debian:bookworm-slim
 ARG GRAFANA_USER=new_user
 
 RUN apt update -y && \
-	apt install -y apt-transport-https software-properties-common wget
+	apt install -y apt-transport-https \
+	software-properties-common wget unzip
 
 RUN mkdir -p /etc/apt/keyrings/ && \
 	wget -q -O - https://apt.grafana.com/gpg.key | gpg --dearmor | tee /etc/apt/keyrings/grafana.gpg > /dev/null
@@ -19,10 +20,12 @@ COPY grafana.ini /grafana.ini
 
 RUN cp -r /usr/share/grafana/conf/provisioning /provisioning
 
-# COPY mysql.yaml /provisioning/datasources
-
 COPY provisioning /provisioning
+
+COPY configure.sh /configure.sh
+
+RUN chmod +x /configure.sh
 
 EXPOSE 7000
 
-CMD ["grafana-server", "--homepath", "/usr/share/grafana", "--config", "/grafana.ini"]
+CMD ["/configure.sh"]
