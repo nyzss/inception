@@ -16,11 +16,11 @@ RUN curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli
 
 RUN wp --info
 
-RUN mkdir -p /var/www/html && \
-	chmod -R 777 /var/www/html && \
-	chown -R www-data:www-data /var/www/html
+RUN mkdir -p /var/www/html/wordpress && \
+	chmod -R 777 /var/www/html/wordpress && \
+	chown -R www-data:www-data /var/www/html/wordpress
 
-WORKDIR /var/www/html
+WORKDIR /var/www/html/wordpress
 
 COPY ./configure.sh /usr/local/bin/configure.sh
 RUN chmod +x /usr/local/bin/configure.sh
