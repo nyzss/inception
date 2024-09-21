@@ -19,7 +19,9 @@ COPY grafana.ini /grafana.ini
 
 RUN cp -r /usr/share/grafana/conf/provisioning /provisioning
 
-COPY mysql.yaml /provisioning/datasources
+# COPY mysql.yaml /provisioning/datasources
+
+COPY provisioning /provisioning
 
 EXPOSE 7000
 
