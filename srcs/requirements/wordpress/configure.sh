@@ -30,4 +30,7 @@ wp redis enable --allow-root
 
 wp user create "${USER_USERNAME}" "${USER_EMAIL}" --user_pass="${USER_PASSWORD}" --role=subscriber --allow-root
 
+chmod -R 777 /var/www/html/wp-content && \
+chown -R www-data:www-data /var/www/html/wp-content
+
 exec php-fpm8.2 -F -R

@@ -19,6 +19,10 @@ RUN mkdir -p /web_data && \
 
 COPY conf /etc/vsftpd.conf
 
+COPY start.sh /usr/bin/start.sh
+
+RUN chmod +x /usr/bin/start.sh
+
 EXPOSE 20 21 30000-31000
 
-CMD ["/usr/sbin/vsftpd", "/etc/vsftpd.conf"]
+CMD ["/usr/bin/start.sh"]
