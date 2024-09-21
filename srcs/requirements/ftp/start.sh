@@ -8,7 +8,7 @@ handle_signal() {
 }
 
 # Set up signal traps
-trap handle_signal SIGTERM SIGINT
+trap handle_signal QUIT TERM INT EXIT
 
 # Start vsftpd
 echo "Starting vsftpd..."

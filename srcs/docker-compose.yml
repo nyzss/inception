@@ -5,6 +5,8 @@ services:
     build:
       context: requirements/nginx
       dockerfile: "Dockerfile"
+    image: nginx
+    pull_policy: build
     ports:
       - "80:80"
       - "443:443"
@@ -15,6 +17,7 @@ services:
     environment:
       DOMAIN_NAME: ${DOMAIN_NAME}
     restart: unless-stopped
+
   wordpress:
     networks:
       - inception-nw
@@ -23,6 +26,8 @@ services:
     build:
       context: requirements/wordpress
       dockerfile: "Dockerfile"
+    image: wordpress
+    pull_policy: build
     depends_on:
       - mariadb
       - redis
@@ -44,6 +49,7 @@ services:
       USER_EMAIL: ${USER_EMAIL}
       USER_PASSWORD: ${USER_PASSWORD}
     restart: unless-stopped
+
   mariadb:
     networks:
       - inception-nw
@@ -52,18 +58,23 @@ services:
     build:
       context: requirements/mariadb
       dockerfile: "Dockerfile"
+    image: mariadb
+    pull_policy: build
     environment:
       MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
       MYSQL_DATABASE: ${MYSQL_DATABASE}
       MYSQL_USER: ${MYSQL_USER}
       MYSQL_PASSWORD: ${MYSQL_PASSWORD}
     restart: unless-stopped
+
   redis:
     networks:
       - inception-nw
     build:
       context: requirements/redis
       dockerfile: "Dockerfile"
+    image: redis
+    pull_policy: build
     restart: unless-stopped
 
   ftp:
@@ -75,6 +86,8 @@ services:
       args:
         FTP_USER: ${FTP_USER}
         FTP_PASSWORD: ${FTP_PASSWORD}
+    image: ftp
+    pull_policy: build
     volumes:
       - web:/web_data
     depends_on:
@@ -83,13 +96,16 @@ services:
       - "20-21:20-21"
       - "30000-31000:30000-31000"
     restart: unless-stopped
+
 volumes:
   web:
+    driver: local
     driver_opts:
       type: none
       device: ${HOME}/data/web
       o: bind
   db:
+    driver: local
     driver_opts:
       type: none
       device: ${HOME}/data/db

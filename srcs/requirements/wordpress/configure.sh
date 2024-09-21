@@ -7,6 +7,8 @@ wp core config --dbhost="${WORDPRESS_DB_HOST}" --dbname="${WORDPRESS_DB_NAME}" \
 
 wp config set WP_CACHE true --raw --allow-root
 
+wp config set WP_DEBUG true --raw --allow-root
+
 wp config set WP_REDIS_HOST redis --allow-root
 
 wp config set WP_REDIS_PORT 6379 --allow-root
