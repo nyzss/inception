@@ -1,18 +1,16 @@
 FROM debian:bookworm-slim
 
-RUN apt update -y
-
-RUN apt install nodejs -y
-RUN apt install npm -y
+RUN apt update -y && \
+    apt install nodejs npm -y
 
 RUN mkdir -p /var/www/html/static
 
-COPY ./website /var/www/html/static
+COPY ./website /website
+
+COPY configure.sh /configure.sh
+
+RUN chmod +x /configure.sh
 
 WORKDIR /var/www/html/static
 
-RUN npm install
-
-RUN npm run build
-
-CMD ["bash"]
+CMD [ "/configure.sh" ]
