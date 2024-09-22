@@ -6,6 +6,8 @@ RUN apt update -y && \
 	apt install -y apt-transport-https \
 	software-properties-common wget unzip
 
+RUN apt install psmisc -y
+
 RUN mkdir -p /etc/apt/keyrings/ && \
 	wget -q -O - https://apt.grafana.com/gpg.key | gpg --dearmor | tee /etc/apt/keyrings/grafana.gpg > /dev/null
 

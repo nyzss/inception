@@ -12,7 +12,8 @@ RUN cp /etc/vsftpd.conf /etc/vsftpd.conf.back && \
 	chown -R www-data:www-data /web_data && \
 	echo ${FTP_USER}:${FTP_PASSWORD} | chpasswd
 
-RUN mkdir -p /var/run/vsftpd/empty
+RUN mkdir -p /var/run/vsftpd/empty && \
+	chmod 777 /var/run/vsftpd/empty
 
 RUN mkdir -p /web_data && \
 	chmod 777 /web_data
