@@ -9,4 +9,4 @@ if [ ! -d "/var/www/html/adminer/index.php" ]; then
 fi
 
 echo "Started adminer!"
-exec php-fpm8.2 -F -R
+exec php-fpm7.4 -F -R

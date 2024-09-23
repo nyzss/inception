@@ -1,4 +1,4 @@
-FROM debian:bookworm-slim
+FROM debian:bullseye
 
 ARG FTP_USER
 ARG FTP_PASSWORD

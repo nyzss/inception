@@ -1,4 +1,4 @@
-FROM debian:bookworm-slim
+FROM debian:bullseye
 
 RUN apt update -y && \
     apt install nodejs npm -y

@@ -1,4 +1,4 @@
-FROM debian:bookworm-slim
+FROM debian:bullseye
 
 RUN apt update -y && apt upgrade -y
 
@@ -6,9 +6,9 @@ RUN apt install mariadb-client curl php-fpm php-mysql php-gd \
 	php-cli php-curl php-mbstring php-zip \
 	php-opcache php-xml php-mysqli -y
 
-RUN php-fpm8.2 --version
+RUN php-fpm7.4 --version
 
-RUN sed -i 's|^listen = /run/php/php8.2-fpm.sock|listen = 0.0.0.0:9000|' /etc/php/8.2/fpm/pool.d/www.conf
+RUN sed -i 's|^listen = /run/php/php7.4-fpm.sock|listen = 0.0.0.0:9000|' /etc/php/7.4/fpm/pool.d/www.conf
 
 RUN curl -L -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar && \
     chmod +x wp-cli.phar && \
@@ -23,7 +23,8 @@ RUN mkdir -p /var/www/html/wordpress && \
 WORKDIR /var/www/html/wordpress
 
 COPY ./configure.sh /usr/local/bin/configure.sh
-RUN chmod +x /usr/local/bin/configure.sh
+RUN chmod +x /usr/local/bin/configure.sh && \
+	mkdir -p /run/php/
 
 # RUN apt install redis -y
 

@@ -1,4 +1,4 @@
-FROM debian:bookworm-slim
+FROM debian:bullseye
 
 # Install MariaDB and gosu for step-down from root
 RUN apt-get update && apt-get install -y mariadb-server gosu && \

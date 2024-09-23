@@ -35,4 +35,4 @@ wp user create "${USER_USERNAME}" "${USER_EMAIL}" --user_pass="${USER_PASSWORD}"
 chmod -R 777 ./wp-content && \
 chown -R www-data:www-data ./wp-content
 
-exec php-fpm8.2 -F -R
+exec php-fpm7.4 -F -R

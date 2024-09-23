@@ -1,17 +1,15 @@
-FROM debian:bookworm-slim
+FROM debian:bullseye
 
-ARG GRAFANA_USER=new_user
+RUN apt update -y
 
-RUN apt update -y && \
-	apt install -y apt-transport-https \
-	software-properties-common wget unzip
+RUN apt install gnupg2 curl \
+	software-properties-common \
+	dirmngr apt-transport-https \
+	lsb-release ca-certificates -y
 
-RUN apt install psmisc -y
+RUN curl https://packages.grafana.com/gpg.key | apt-key add -
 
-RUN mkdir -p /etc/apt/keyrings/ && \
-	wget -q -O - https://apt.grafana.com/gpg.key | gpg --dearmor | tee /etc/apt/keyrings/grafana.gpg > /dev/null
-
-RUN echo "deb [signed-by=/etc/apt/keyrings/grafana.gpg] https://apt.grafana.com stable main" | tee -a /etc/apt/sources.list.d/grafana.list
+RUN add-apt-repository "deb https://packages.grafana.com/oss/deb stable main"
 
 RUN apt update -y && \
 	apt install grafana -y

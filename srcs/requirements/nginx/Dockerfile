@@ -1,4 +1,4 @@
-FROM debian:bookworm-slim
+FROM debian:bullseye
 
 RUN apt update -y && apt upgrade -y && \
 	apt install openssl -y && \
@@ -20,6 +20,7 @@ COPY ./nginx.conf /etc/nginx/nginx.conf
 
 WORKDIR /var/www/html
 
-EXPOSE 80 443
+EXPOSE 443
+# EXPOSE 80 443
 
 CMD ["nginx", "-g", "daemon off;"]
