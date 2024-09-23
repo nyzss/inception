@@ -74,7 +74,7 @@ services:
     networks:
       - inception-nw
     build:
-      context: requirements/redis
+      context: requirements/bonus/redis
       dockerfile: "Dockerfile"
     image: redis
     pull_policy: never
@@ -84,7 +84,7 @@ services:
     networks:
       - inception-nw
     build:
-      context: requirements/ftp
+      context: requirements/bonus/ftp
       dockerfile: "Dockerfile"
       args:
         FTP_USER: ${FTP_USER}
@@ -102,7 +102,7 @@ services:
     networks:
       - inception-nw
     build:
-      context: requirements/static
+      context: requirements/bonus/static
       dockerfile: "Dockerfile"
     image: static
     pull_policy: never
@@ -114,7 +114,7 @@ services:
     networks:
       - inception-nw
     build:
-      context: requirements/adminer
+      context: requirements/bonus/adminer
       dockerfile: "Dockerfile"
     image: adminer
     depends_on:
@@ -128,7 +128,7 @@ services:
     networks:
       - inception-nw
     build:
-      context: requirements/grafana
+      context: requirements/bonus/grafana
       dockerfile: "Dockerfile"
     image: grafana
     depends_on:
