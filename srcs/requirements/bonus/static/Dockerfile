@@ -1,7 +1,13 @@
 FROM debian:bullseye
 
-RUN apt update -y && \
-    apt install nodejs npm -y
+RUN apt-get update -y && \
+    apt-get install curl -y
+
+RUN curl -fsSL https://deb.nodesource.com/setup_22.x -o /nodesource_setup.sh && \
+    bash /nodesource_setup.sh
+
+RUN apt-get update -y && \
+    apt-get install nodejs -y
 
 RUN mkdir -p /var/www/html/static
 
